@@ -6,6 +6,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import { rateLimit } from 'express-rate-limit';
+import notFoundRouteHandler from './middleware/404/notFoundRoute';
+import backendServerErrorHandler from './middleware/500/backendServerError';
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,6 +36,8 @@ app.use(limiter);
 app.get('/api/v1/test', (_req, res) => {
     return res.status(200).send('Hello world');
 });
+app.use(notFoundRouteHandler);
+app.use(backendServerErrorHandler);
 async function serve() {
     try {
         await connectedToDB(),
