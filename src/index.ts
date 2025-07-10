@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import morgan from 'morgan';
+import connectedToDB from './config/databaseConfig/databaseConfig';
 import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
@@ -33,6 +34,25 @@ app.use(limiter);
 app.get('/api/v1/test', (_req, res) => {
     return res.status(200).send('Hello world');
 });
-app.listen(APP_PORT, () => {
-    console.log(`Server is called ${APP_NAME} running on ${APP_HOST}/ on port ${APP_PORT} on /api/${API_VERSION} owned by ${APP_OWNER}...`);
-});
+async function serve() {
+    try {
+        await connectedToDB(),
+            app.listen(APP_PORT, () => {
+                console.log(`Server is called ${APP_NAME} running on ${APP_HOST}/ on port ${APP_PORT} on /api/${API_VERSION} owned by ${APP_OWNER}...`);
+            });
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            console.error("Failed to connect to DB..", {
+                error: error.message,
+                stack: error.stack,
+                timestamp: new Date(0).toISOString(),
+            });
+        } else {
+            console.error("An unknown error occured!", {
+                timestamp: new Date(0).toISOString(),
+            })
+        }
+        process.exit(1);
+    }
+}
+serve();
