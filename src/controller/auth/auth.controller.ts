@@ -4,7 +4,9 @@ import { loginAccountSchema, registerAccountSchema } from '../../utils/validator
 import createAccount from '../../service/impl/register/register.impl';
 import authToken from '../../middleware/auth/auth.middle';
 import loginIntoYourAccount from '../../service/impl/login/login.impl';
+import logout from '../../service/impl/logout/logout.impl';
 const router = express.Router();
 router.post('/create-account', globalValidator(registerAccountSchema), createAccount);
 router.post('/login', authToken, globalValidator(loginAccountSchema), loginIntoYourAccount);
+router.post('/logout', authToken, logout);
 export default router;
