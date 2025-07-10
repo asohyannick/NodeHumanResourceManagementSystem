@@ -9,7 +9,7 @@ const createAccount = async(req: Request, res: Response): Promise<Response> => {
         if (user) {
             user.refreshToken = '',
             await user.save();
-            return res.status(StatusCodes.BAD_REQUEST).json({message: "User doesn't exist!"});
+            return res.status(StatusCodes.BAD_REQUEST).json({message: "User already exist!"});
         }
         const newUser = new Auth({
             firstName,

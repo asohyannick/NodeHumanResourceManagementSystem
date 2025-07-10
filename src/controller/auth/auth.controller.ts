@@ -1,7 +1,10 @@
 import express from 'express';
 import globalValidator from '../../middleware/globalValidator/globalValidator';
-import { registerAccountSchema } from '../../utils/validators.impl';
+import { loginAccountSchema, registerAccountSchema } from '../../utils/validators.impl';
 import createAccount from '../../service/impl/register/register.impl';
+import authToken from '../../middleware/auth/auth.middle';
+import loginIntoYourAccount from '../../service/impl/login/login.impl';
 const router = express.Router();
 router.post('/create-account', globalValidator(registerAccountSchema), createAccount);
+router.post('/login', authToken, globalValidator(loginAccountSchema), loginIntoYourAccount);
 export default router;
