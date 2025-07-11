@@ -7,6 +7,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import { rateLimit } from 'express-rate-limit';
 import authRoute from './controller/auth/auth.controller';
+import profileRoute from './controller/profile/profile.controller';
 import notFoundRouteHandler from './middleware/404/notFoundRoute';
 import backendServerErrorHandler from './middleware/500/backendServerError';
 const app = express();
@@ -34,6 +35,7 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 app.use(`/api/${API_VERSION}/auth`, authRoute);
+app.use(`/api/${API_VERSION}/profile`, profileRoute);
 app.use(notFoundRouteHandler);
 app.use(backendServerErrorHandler);
 async function serve() {

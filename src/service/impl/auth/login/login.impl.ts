@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import Auth from "../../../model/auth/auth.model";
+import Auth from "../../../../model/auth/auth.model";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 const loginIntoYourAccount = async (req: Request, res: Response): Promise<Response> => {

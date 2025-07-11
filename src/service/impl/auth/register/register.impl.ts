@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import Auth from "../../../model/auth/auth.model";
+import Auth from "../../../../model/auth/auth.model";
 import jwt from 'jsonwebtoken';
 const createAccount = async(req: Request, res: Response): Promise<Response> => {
     const { firstName, lastName, email, password } = req.body;

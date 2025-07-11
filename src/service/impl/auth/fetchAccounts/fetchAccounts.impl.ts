@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import Auth from "../../../model/auth/auth.model";
+import Auth from "../../../../model/auth/auth.model";
 const fetchAccounts = async(_req: Request, res: Response): Promise<Response> => {
     try {
         const users = await Auth.find();
