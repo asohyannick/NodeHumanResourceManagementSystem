@@ -6,9 +6,11 @@ import createEmployee from '../../service/impl/employee/createEmployee/createEmp
 import showEmployees from '../../service/impl/employee/showEmployees/showEmployees.impl';
 import showEmployee from '../../service/impl/employee/showEmployee/showEmployee.impl';
 import updateEmployee from '../../service/impl/employee/updateEmployee/updateEmployee.impl';
+import deleteEmployee from '../../service/impl/employee/deleteEmployee/deleteEmployee.impl';
 const router = express.Router();
 router.post('/create-employee', authToken, globalValidator(employeeSchema), createEmployee);
 router.get('/show-employees', authToken, showEmployees);
 router.get('/show-employee/:id', authToken, showEmployee);
 router.put('/update-employee/:id', authToken, globalValidator(updateEmployeeSchema), updateEmployee);
+router.delete('/delete-employee/:id', authToken, deleteEmployee);
 export default router;
