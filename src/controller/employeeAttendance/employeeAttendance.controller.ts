@@ -6,10 +6,11 @@ import createEmployeeAttendance from '../../service/impl/attendance/createEmploy
 import showEmployeeAttendances from '../../service/impl/attendance/showEmployeeAttendances/showEmployeeAttendances';
 import showEmployeeAttendance from '../../service/impl/attendance/showEmployeeAttendance/showEmployeeAttendance';
 import updateEmployeeAttendance from '../../service/impl/attendance/updateEmployeeAttendance/updateEmployeeAttendance';
+import deleteEmployeeAttendance from '../../service/impl/attendance/deleteEmployeeAttendance/deleteEmployeeAttendance';
 const router = express.Router();
 router.post('/create-attendance', authToken, globalValidator(AttendanceValidationSchema), createEmployeeAttendance);
 router.get('/show-employee-attendances', authToken, showEmployeeAttendances);
 router.get('/show-employee-attendance/:id', authToken, showEmployeeAttendance);
 router.put('/update-employee-attendance/:id', authToken, globalValidator(updateAttendanceValidationSchema), updateEmployeeAttendance);
-
+router.delete('/delete-employee-attendance/:id', authToken, deleteEmployeeAttendance);
 export default router;
