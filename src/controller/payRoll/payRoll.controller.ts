@@ -3,6 +3,8 @@ import authToken from '../../middleware/auth/auth.middle';
 import globalValidator from '../../middleware/globalValidator/globalValidator';
 import { PayrollValidationSchema } from '../../utils/validators.impl';
 import createEmployeePayRoll from '../../service/impl/payRoll/creeateEmployeePayRoll/createEmployeePayRoll';
+import showEmployeePayRolls from '../../service/impl/payRoll/showEmployeePayRolls/showEmployeePayRolls';
 const router = express.Router();
 router.post('/create-employee-pay-roll', authToken, globalValidator(PayrollValidationSchema), createEmployeePayRoll);
+router.get('/show-employee-pay-rolls', authToken, showEmployeePayRolls);
 export default router;
