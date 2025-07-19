@@ -480,6 +480,80 @@ const updateJobValidationSchema = Yup.object().shape({
         .of(Yup.string())
         .optional(),
 });
+const EmployeeLeaveValidationSchema = Yup.object().shape({
+    employeeId: Yup.string()
+        .required('Employee ID is required')
+        .length(24, 'Employee ID must be 24 characters long'), // Assuming ObjectId format
+    name: Yup.string()
+        .required('Leave type name is required'),
+    description: Yup.string()
+        .optional(),
+    maxDays: Yup.number()
+        .required('Maximum days allowed is required')
+        .positive('Maximum days must be a positive number')
+        .integer('Maximum days must be an integer'),
+    startDate: Yup.date()
+        .required('Start date is required')
+        .nullable(),
+    endDate: Yup.date()
+        .required('End date is required')
+        .nullable()
+        .min(Yup.ref('startDate'), 'End date must be after start date'),
+    totalDays: Yup.number()
+        .required('Total days requested is required')
+        .positive('Total days must be a positive number')
+        .integer('Total days must be an integer'),
+    status: Yup.string()
+        .oneOf(['Pending', 'Approved', 'Rejected'], 'Status must be either Pending, Approved, or Rejected')
+        .required('Status is required'),
+    reason: Yup.string()
+        .optional(),
+    availableDays: Yup.number()
+        .required('Available days is required')
+        .positive('Available days must be a positive number')
+        .integer('Available days must be an integer'),
+    usedDays: Yup.number()
+        .required('Used days is required')
+        .min(0, 'Used days cannot be negative') 
+        .integer('Used days must be an integer'),
+});
+const updateEmployeeLeaveValidationSchema = Yup.object().shape({
+    employeeId: Yup.string()
+        .required('Employee ID is required')
+        .length(24, 'Employee ID must be 24 characters long'), // Assuming ObjectId format
+    name: Yup.string()
+        .required('Leave type name is required'),
+    description: Yup.string()
+        .optional(),
+    maxDays: Yup.number()
+        .required('Maximum days allowed is required')
+        .positive('Maximum days must be a positive number')
+        .integer('Maximum days must be an integer'),
+    startDate: Yup.date()
+        .required('Start date is required')
+        .nullable(),
+    endDate: Yup.date()
+        .required('End date is required')
+        .nullable()
+        .min(Yup.ref('startDate'), 'End date must be after start date'),
+    totalDays: Yup.number()
+        .required('Total days requested is required')
+        .positive('Total days must be a positive number')
+        .integer('Total days must be an integer'),
+    status: Yup.string()
+        .oneOf(['Pending', 'Approved', 'Rejected'], 'Status must be either Pending, Approved, or Rejected')
+        .required('Status is required'),
+    reason: Yup.string()
+        .optional(),
+    availableDays: Yup.number()
+        .required('Available days is required')
+        .positive('Available days must be a positive number')
+        .integer('Available days must be an integer'),
+    usedDays: Yup.number()
+        .required('Used days is required')
+        .min(0, 'Used days cannot be negative') 
+        .integer('Used days must be an integer'),
+});
 export {
     registerAccountSchema,
     loginAccountSchema,
@@ -492,4 +566,6 @@ export {
     updateDepartmentSchema,
     JobValidationSchema,
     updateJobValidationSchema,
+    EmployeeLeaveValidationSchema,
+    updateEmployeeLeaveValidationSchema
 }
