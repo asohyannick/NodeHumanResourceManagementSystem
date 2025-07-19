@@ -92,7 +92,7 @@ const updateProfileSchema = Yup.object().shape({
         .required('Hobbies are required')
         .min(1, 'At least one hobby is required'), // Ensure at least one hobby
 });
- const employeeSchema = Yup.object().shape({
+const employeeSchema = Yup.object().shape({
     firstName: Yup.string()
         .required('First name is required')
         .min(1, 'First name must be at least 1 character long')
@@ -139,7 +139,7 @@ const updateProfileSchema = Yup.object().shape({
             .required('Emergency contact phone is required')
             .matches(/^\+?\d{10,15}$/, 'Phone number must be a valid format'), // Adjust regex as needed
     }))
-    .min(1, 'At least one emergency contact is required'),
+        .min(1, 'At least one emergency contact is required'),
     employmentDetails: Yup.object().shape({
         jobTitle: Yup.string()
             .required('Job title is required'),
@@ -176,7 +176,7 @@ const updateProfileSchema = Yup.object().shape({
     isActive: Yup.boolean()
         .required('Active status is required'),
 });
- const updateEmployeeSchema = Yup.object().shape({
+const updateEmployeeSchema = Yup.object().shape({
     firstName: Yup.string()
         .required('First name is required')
         .min(1, 'First name must be at least 1 character long')
@@ -223,7 +223,7 @@ const updateProfileSchema = Yup.object().shape({
             .required('Emergency contact phone is required')
             .matches(/^\+?\d{10,15}$/, 'Phone number must be a valid format'), // Adjust regex as needed
     }))
-    .min(1, 'At least one emergency contact is required'),
+        .min(1, 'At least one emergency contact is required'),
     employmentDetails: Yup.object().shape({
         jobTitle: Yup.string()
             .required('Job title is required'),
@@ -265,49 +265,49 @@ const departmentSchema = Yup.object().shape({
         .required('Department name is required')
         .min(1, 'Department name must be at least 1 character long')
         .max(100, 'Department name must be at most 100 characters long'),
-    
+
     description: Yup.string()
         .optional()
         .max(255, 'Description must be at most 255 characters long'),
-    
+
     location: Yup.string()
         .required('Location is required')
         .min(1, 'Location must be at least 1 character long')
         .max(100, 'Location must be at most 100 characters long'),
-    
+
     headId: Yup.string()
         .optional()
         .matches(/^[a-fA-F0-9]{24}$/, 'Head ID must be a valid MongoDB ObjectId'),
-    
+
     employees: Yup.array()
         .of(Yup.string().matches(/^[a-fA-F0-9]{24}$/, 'Employee IDs must be valid MongoDB ObjectIds'))
         .required('Employees array is required'),
-    
+
     budget: Yup.number()
         .required('Budget is required')
         .min(0, 'Budget must be a non-negative number'),
-    
+
     isActive: Yup.boolean()
         .required('Active status is required'),
-    
+
     projects: Yup.array().of(
         Yup.object().shape({
             name: Yup.string()
                 .required('Project name is required')
                 .max(100, 'Project name must be at most 100 characters long'),
-            
+
             description: Yup.string()
                 .required('Project description is required')
                 .max(255, 'Project description must be at most 255 characters long'),
-            
+
             startDate: Yup.date()
                 .required('Start date is required')
                 .max(new Date(), 'Start date cannot be in the future'), // Adjust if needed
-            
+
             endDate: Yup.date()
                 .required('End date is required')
                 .min(Yup.ref('startDate'), 'End date must be after start date'), // Ensure end is after start
-            
+
             status: Yup.mixed<DepartmentStatus>()
                 .oneOf(Object.values(DepartmentStatus), 'Status must be one of Active, Completed, or Hold On')
                 .required('Project status is required'),
@@ -319,54 +319,166 @@ const updateDepartmentSchema = Yup.object().shape({
         .required('Department name is required')
         .min(1, 'Department name must be at least 1 character long')
         .max(100, 'Department name must be at most 100 characters long'),
-    
+
     description: Yup.string()
         .optional()
         .max(255, 'Description must be at most 255 characters long'),
-    
+
     location: Yup.string()
         .required('Location is required')
         .min(1, 'Location must be at least 1 character long')
         .max(100, 'Location must be at most 100 characters long'),
-    
+
     headId: Yup.string()
         .optional()
         .matches(/^[a-fA-F0-9]{24}$/, 'Head ID must be a valid MongoDB ObjectId'),
-    
+
     employees: Yup.array()
         .of(Yup.string().matches(/^[a-fA-F0-9]{24}$/, 'Employee IDs must be valid MongoDB ObjectIds'))
         .required('Employees array is required'),
-    
+
     budget: Yup.number()
         .required('Budget is required')
         .min(0, 'Budget must be a non-negative number'),
-    
+
     isActive: Yup.boolean()
         .required('Active status is required'),
-    
+
     projects: Yup.array().of(
         Yup.object().shape({
             name: Yup.string()
                 .required('Project name is required')
                 .max(100, 'Project name must be at most 100 characters long'),
-            
+
             description: Yup.string()
                 .required('Project description is required')
                 .max(255, 'Project description must be at most 255 characters long'),
-            
+
             startDate: Yup.date()
                 .required('Start date is required')
                 .max(new Date(), 'Start date cannot be in the future'), // Adjust if needed
-            
+
             endDate: Yup.date()
                 .required('End date is required')
                 .min(Yup.ref('startDate'), 'End date must be after start date'), // Ensure end is after start
-            
+
             status: Yup.mixed<DepartmentStatus>()
                 .oneOf(Object.values(DepartmentStatus), 'Status must be one of Active, Completed, or Hold On')
                 .required('Project status is required'),
         })
     ).optional(),
+});
+// Yup validation schema
+const JobValidationSchema = Yup.object().shape({
+    title: Yup.string()
+        .required('Title is required'),
+    description: Yup.string()
+        .optional(),
+    departmentId: Yup.string()
+        .required('Department ID is required')
+        .length(24, 'Department ID must be 24 characters'),
+    location: Yup.string()
+        .optional(),
+    employmentType: Yup.string()
+        .oneOf(['Full-time', 'Part-time', 'Contract'], 'Invalid employment type')
+        .required('Employment type is required'),
+    requiredQualifications: Yup.array()
+        .of(
+            Yup.object().shape({
+                type: Yup.string()
+                    .oneOf(['Education', 'Experience', 'Skill'], 'Invalid qualification type')
+                    .required('Qualification type is required'),
+                description: Yup.string()
+                    .required('Qualification description is required'),
+            })
+        )
+        .required('At least one required qualification is needed'),
+    preferredQualifications: Yup.array()
+        .of(
+            Yup.object().shape({
+                type: Yup.string()
+                    .oneOf(['Education', 'Experience', 'Skill'], 'Invalid qualification type'),
+                description: Yup.string(),
+            })
+        )
+        .optional(),
+    salaryRange: Yup.object().shape({
+        min: Yup.number()
+            .required('Minimum salary is required')
+            .positive('Minimum salary must be a positive number'),
+        max: Yup.number()
+            .required('Maximum salary is required')
+            .positive('Maximum salary must be a positive number')
+            .moreThan(Yup.ref('min'), 'Maximum salary must be greater than minimum salary'),
+    }).required('Salary range is required'),
+    postingDate: Yup.date()
+        .default(() => new Date())
+        .optional(),
+    closingDate: Yup.date()
+        .nullable()
+        .optional(),
+    status: Yup.string()
+        .oneOf(['Open', 'Closed', 'On Hold'], 'Invalid status')
+        .required('Status is required'),
+    applicants: Yup.array()
+        .of(Yup.string())
+        .optional(),
+});
+// Yup validation schema
+const updateJobValidationSchema = Yup.object().shape({
+    title: Yup.string()
+        .required('Title is required'),
+    description: Yup.string()
+        .optional(),
+    departmentId: Yup.string()
+        .required('Department ID is required')
+        .length(24, 'Department ID must be 24 characters'),
+    location: Yup.string()
+        .optional(),
+    employmentType: Yup.string()
+        .oneOf(['Full-time', 'Part-time', 'Contract'], 'Invalid employment type')
+        .required('Employment type is required'),
+    requiredQualifications: Yup.array()
+        .of(
+            Yup.object().shape({
+                type: Yup.string()
+                    .oneOf(['Education', 'Experience', 'Skill'], 'Invalid qualification type')
+                    .required('Qualification type is required'),
+                description: Yup.string()
+                    .required('Qualification description is required'),
+            })
+        )
+        .required('At least one required qualification is needed'),
+    preferredQualifications: Yup.array()
+        .of(
+            Yup.object().shape({
+                type: Yup.string()
+                    .oneOf(['Education', 'Experience', 'Skill'], 'Invalid qualification type'),
+                description: Yup.string(),
+            })
+        )
+        .optional(),
+    salaryRange: Yup.object().shape({
+        min: Yup.number()
+            .required('Minimum salary is required')
+            .positive('Minimum salary must be a positive number'),
+        max: Yup.number()
+            .required('Maximum salary is required')
+            .positive('Maximum salary must be a positive number')
+            .moreThan(Yup.ref('min'), 'Maximum salary must be greater than minimum salary'),
+    }).required('Salary range is required'),
+    postingDate: Yup.date()
+        .default(() => new Date())
+        .optional(),
+    closingDate: Yup.date()
+        .nullable()
+        .optional(),
+    status: Yup.string()
+        .oneOf(['Open', 'Closed', 'On Hold'], 'Invalid status')
+        .required('Status is required'),
+    applicants: Yup.array()
+        .of(Yup.string())
+        .optional(),
 });
 export {
     registerAccountSchema,
@@ -377,5 +489,7 @@ export {
     employeeSchema,
     updateEmployeeSchema,
     departmentSchema,
-    updateDepartmentSchema, 
+    updateDepartmentSchema,
+    JobValidationSchema,
+    updateJobValidationSchema,
 }
