@@ -9,6 +9,7 @@ import { rateLimit } from 'express-rate-limit';
 import authRoute from './controller/auth/auth.controller';
 import profileRoute from './controller/profile/profile.controller';
 import employeeRoute from './controller/employee/employee.controller';
+import departmentRoute from './controller/department/department.controller';
 import notFoundRouteHandler from './middleware/404/notFoundRoute';
 import backendServerErrorHandler from './middleware/500/backendServerError';
 const app = express();
@@ -38,6 +39,7 @@ app.use(limiter);
 app.use(`/api/${API_VERSION}/auth`, authRoute);
 app.use(`/api/${API_VERSION}/profile`, profileRoute);
 app.use(`/api/${API_VERSION}/employee`, employeeRoute);
+app.use(`/api/${API_VERSION}/department`, departmentRoute);
 app.use(notFoundRouteHandler);
 app.use(backendServerErrorHandler);
 async function serve() {

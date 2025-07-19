@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { DepartmentStatus } from '../service/interfac/department/department.interfac';
 const registerAccountSchema = Yup.object().shape({
     firstName: Yup.string().required('firstName must be provided').trim().min(3, 'firstName must be atleast 3 characters minimum').lowercase(),
     lasttName: Yup.string().required('lastName must be provided').trim().min(3, 'lasttName must be atleast 3 characters minimum').lowercase(),
@@ -259,6 +260,114 @@ const updateProfileSchema = Yup.object().shape({
     isActive: Yup.boolean()
         .required('Active status is required'),
 });
+const departmentSchema = Yup.object().shape({
+    name: Yup.string()
+        .required('Department name is required')
+        .min(1, 'Department name must be at least 1 character long')
+        .max(100, 'Department name must be at most 100 characters long'),
+    
+    description: Yup.string()
+        .optional()
+        .max(255, 'Description must be at most 255 characters long'),
+    
+    location: Yup.string()
+        .required('Location is required')
+        .min(1, 'Location must be at least 1 character long')
+        .max(100, 'Location must be at most 100 characters long'),
+    
+    headId: Yup.string()
+        .optional()
+        .matches(/^[a-fA-F0-9]{24}$/, 'Head ID must be a valid MongoDB ObjectId'),
+    
+    employees: Yup.array()
+        .of(Yup.string().matches(/^[a-fA-F0-9]{24}$/, 'Employee IDs must be valid MongoDB ObjectIds'))
+        .required('Employees array is required'),
+    
+    budget: Yup.number()
+        .required('Budget is required')
+        .min(0, 'Budget must be a non-negative number'),
+    
+    isActive: Yup.boolean()
+        .required('Active status is required'),
+    
+    projects: Yup.array().of(
+        Yup.object().shape({
+            name: Yup.string()
+                .required('Project name is required')
+                .max(100, 'Project name must be at most 100 characters long'),
+            
+            description: Yup.string()
+                .required('Project description is required')
+                .max(255, 'Project description must be at most 255 characters long'),
+            
+            startDate: Yup.date()
+                .required('Start date is required')
+                .max(new Date(), 'Start date cannot be in the future'), // Adjust if needed
+            
+            endDate: Yup.date()
+                .required('End date is required')
+                .min(Yup.ref('startDate'), 'End date must be after start date'), // Ensure end is after start
+            
+            status: Yup.mixed<DepartmentStatus>()
+                .oneOf(Object.values(DepartmentStatus), 'Status must be one of Active, Completed, or Hold On')
+                .required('Project status is required'),
+        })
+    ).optional(),
+});
+const updateDepartmentSchema = Yup.object().shape({
+    name: Yup.string()
+        .required('Department name is required')
+        .min(1, 'Department name must be at least 1 character long')
+        .max(100, 'Department name must be at most 100 characters long'),
+    
+    description: Yup.string()
+        .optional()
+        .max(255, 'Description must be at most 255 characters long'),
+    
+    location: Yup.string()
+        .required('Location is required')
+        .min(1, 'Location must be at least 1 character long')
+        .max(100, 'Location must be at most 100 characters long'),
+    
+    headId: Yup.string()
+        .optional()
+        .matches(/^[a-fA-F0-9]{24}$/, 'Head ID must be a valid MongoDB ObjectId'),
+    
+    employees: Yup.array()
+        .of(Yup.string().matches(/^[a-fA-F0-9]{24}$/, 'Employee IDs must be valid MongoDB ObjectIds'))
+        .required('Employees array is required'),
+    
+    budget: Yup.number()
+        .required('Budget is required')
+        .min(0, 'Budget must be a non-negative number'),
+    
+    isActive: Yup.boolean()
+        .required('Active status is required'),
+    
+    projects: Yup.array().of(
+        Yup.object().shape({
+            name: Yup.string()
+                .required('Project name is required')
+                .max(100, 'Project name must be at most 100 characters long'),
+            
+            description: Yup.string()
+                .required('Project description is required')
+                .max(255, 'Project description must be at most 255 characters long'),
+            
+            startDate: Yup.date()
+                .required('Start date is required')
+                .max(new Date(), 'Start date cannot be in the future'), // Adjust if needed
+            
+            endDate: Yup.date()
+                .required('End date is required')
+                .min(Yup.ref('startDate'), 'End date must be after start date'), // Ensure end is after start
+            
+            status: Yup.mixed<DepartmentStatus>()
+                .oneOf(Object.values(DepartmentStatus), 'Status must be one of Active, Completed, or Hold On')
+                .required('Project status is required'),
+        })
+    ).optional(),
+});
 export {
     registerAccountSchema,
     loginAccountSchema,
@@ -266,5 +375,7 @@ export {
     profileSchema,
     updateProfileSchema,
     employeeSchema,
-    updateEmployeeSchema
+    updateEmployeeSchema,
+    departmentSchema,
+    updateDepartmentSchema, 
 }
