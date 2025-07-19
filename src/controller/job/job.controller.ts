@@ -3,6 +3,8 @@ import authToken from '../../middleware/auth/auth.middle';
 import globalValidator from '../../middleware/globalValidator/globalValidator';
 import { JobValidationSchema } from '../../utils/validators.impl';
 import createJob from '../../service/impl/job/createJob/createJob';
+import showJobs from '../../service/impl/job/showJobs/showJobs';
 const router = express.Router();
 router.post('/create-job', authToken, globalValidator(JobValidationSchema), createJob);
+router.get('/show-jobs', authToken, showJobs);
 export default router;
