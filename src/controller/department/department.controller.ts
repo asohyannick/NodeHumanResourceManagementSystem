@@ -10,5 +10,5 @@ const router = express.Router();
 router.post('/create-department', authToken, globalValidator(departmentSchema), createDepartment);
 router.get('/show-departments', authToken, showDepartments);
 router.get('/show-department/:id', authToken, showDepartment);
-router.put('/show-department/:id', authToken, globalValidator(updateDepartmentSchema), updateDepartment);
+router.put('/update-department/:id', authToken, globalValidator(updateDepartmentSchema), updateDepartment);
 export default router;
