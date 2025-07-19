@@ -1,12 +1,14 @@
 import express from 'express';
 import authToken from '../../middleware/auth/auth.middle';
 import globalValidator from '../../middleware/globalValidator/globalValidator';
-import { JobValidationSchema } from '../../utils/validators.impl';
+import { JobValidationSchema, updateJobValidationSchema } from '../../utils/validators.impl';
 import createJob from '../../service/impl/job/createJob/createJob';
 import showJobs from '../../service/impl/job/showJobs/showJobs';
 import showJob from '../../service/impl/job/showJob/showJob';
+import updateJob from '../../service/impl/job/updateJob/updateJob';
 const router = express.Router();
 router.post('/create-job', authToken, globalValidator(JobValidationSchema), createJob);
 router.get('/show-jobs', authToken, showJobs);
 router.get('/show-job/:id', authToken, showJob);
+router.put('/update-job/:id', authToken, globalValidator(updateJobValidationSchema), updateJob);
 export default router;
