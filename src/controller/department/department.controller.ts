@@ -6,9 +6,11 @@ import createDepartment from '../../service/impl/department/createDepartment/cre
 import showDepartments from '../../service/impl/department/showDepartments/showDepartments';
 import showDepartment from '../../service/impl/department/showDepartment/showDepartment';
 import updateDepartment from '../../service/impl/department/updateDepartment/updateDepartment';
+import deleteDepartment from '../../service/impl/department/deleteDepartment/deleteDepartment';
 const router = express.Router();
 router.post('/create-department', authToken, globalValidator(departmentSchema), createDepartment);
 router.get('/show-departments', authToken, showDepartments);
 router.get('/show-department/:id', authToken, showDepartment);
 router.put('/update-department/:id', authToken, globalValidator(updateDepartmentSchema), updateDepartment);
+router.delete('/delete-department/:id', authToken, deleteDepartment);
 export default router;
