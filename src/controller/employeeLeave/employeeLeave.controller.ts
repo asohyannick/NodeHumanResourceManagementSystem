@@ -4,7 +4,9 @@ import createEmployeeLeave from '../../service/impl/leave/createEmployeeLeave/cr
 import globalValidator from '../../middleware/globalValidator/globalValidator';
 import { EmployeeLeaveValidationSchema } from '../../utils/validators.impl';
 import showEmployeeLeaves from '../../service/impl/leave/showEmployeeLeaves/showEmployeeLeaves';
+import showEmployeeLeave from '../../service/impl/leave/showEmployeeLeave/showEmployeeLeave';
 const router = express.Router();
 router.post('/create-employee-leave', authToken, globalValidator(EmployeeLeaveValidationSchema), createEmployeeLeave);
 router.get('/show-employee-leaves', authToken, showEmployeeLeaves);
+router.get('/show-employee-leave/:id', authToken, showEmployeeLeave);
 export default router;
