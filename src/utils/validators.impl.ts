@@ -554,6 +554,77 @@ const updateEmployeeLeaveValidationSchema = Yup.object().shape({
         .min(0, 'Used days cannot be negative') 
         .integer('Used days must be an integer'),
 });
+const AttendanceValidationSchema = Yup.object().shape({
+    employeeId: Yup.string()
+        .required('Employee ID is required'),
+    totalPresent: Yup.number()
+        .required('Total present days is required')
+        .integer('Total present days must be an integer')
+        .min(0, 'Total present days cannot be negative'),
+    totalAbsent: Yup.number()
+        .required('Total absent days is required')
+        .integer('Total absent days must be an integer')
+        .min(0, 'Total absent days cannot be negative'),
+    totalLeave: Yup.number()
+        .required('Total leave days is required')
+        .integer('Total leave days must be an integer')
+        .min(0, 'Total leave days cannot be negative'),
+    totalHolidays: Yup.number()
+        .required('Total holidays is required')
+        .integer('Total holidays must be an integer')
+        .min(0, 'Total holidays cannot be negative'),
+    date: Yup.date()
+        .required('Date is required')
+        .nullable(),
+    checkInTime: Yup.date()
+        .nullable()
+        .optional(),
+    checkOutTime: Yup.date()
+        .nullable()
+        .optional()
+        .min(Yup.ref('checkInTime'), 'Check-out time must be after check-in time'),
+    status: Yup.string()
+        .oneOf(['Present', 'Absent', 'Leave', 'Holiday'], 'Status must be either Present, Absent, Leave, or Holiday')
+        .required('Status is required'),
+    reason: Yup.string()
+        .optional(),
+});
+const updateAttendanceValidationSchema = Yup.object().shape({
+    employeeId: Yup.string()
+        .required('Employee ID is required'),
+    totalPresent: Yup.number()
+        .required('Total present days is required')
+        .integer('Total present days must be an integer')
+        .min(0, 'Total present days cannot be negative'),
+    totalAbsent: Yup.number()
+        .required('Total absent days is required')
+        .integer('Total absent days must be an integer')
+        .min(0, 'Total absent days cannot be negative'),
+    totalLeave: Yup.number()
+        .required('Total leave days is required')
+        .integer('Total leave days must be an integer')
+        .min(0, 'Total leave days cannot be negative'),
+    totalHolidays: Yup.number()
+        .required('Total holidays is required')
+        .integer('Total holidays must be an integer')
+        .min(0, 'Total holidays cannot be negative'),
+    date: Yup.date()
+        .required('Date is required')
+        .nullable(),
+    checkInTime: Yup.date()
+        .nullable()
+        .optional(),
+    checkOutTime: Yup.date()
+        .nullable()
+        .optional()
+        .min(Yup.ref('checkInTime'), 'Check-out time must be after check-in time'),
+    status: Yup.string()
+        .oneOf(['Present', 'Absent', 'Leave', 'Holiday'], 'Status must be either Present, Absent, Leave, or Holiday')
+        .required('Status is required'),
+    reason: Yup.string()
+        .optional(),
+});
+
 export {
     registerAccountSchema,
     loginAccountSchema,
@@ -567,5 +638,7 @@ export {
     JobValidationSchema,
     updateJobValidationSchema,
     EmployeeLeaveValidationSchema,
-    updateEmployeeLeaveValidationSchema
+    updateEmployeeLeaveValidationSchema,
+    AttendanceValidationSchema,
+    updateAttendanceValidationSchema,
 }

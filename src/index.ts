@@ -12,6 +12,7 @@ import employeeRoute from './controller/employee/employee.controller';
 import departmentRoute from './controller/department/department.controller';
 import jobRoute from './controller/job/job.controller';
 import employeeLeaveRoute from './controller/employeeLeave/employeeLeave.controller';
+import employeeAttendanceRoute from './controller/employeeAttendance/employeeAttendance.controller';
 import notFoundRouteHandler from './middleware/404/notFoundRoute';
 import backendServerErrorHandler from './middleware/500/backendServerError';
 const app = express();
@@ -44,6 +45,7 @@ app.use(`/api/${API_VERSION}/employee`, employeeRoute);
 app.use(`/api/${API_VERSION}/department`, departmentRoute);
 app.use(`/api/${API_VERSION}/job`, jobRoute);
 app.use(`/api/${API_VERSION}/employee-leave`, employeeLeaveRoute);
+app.use(`/api/${API_VERSION}/employee-attendance`, employeeAttendanceRoute);
 app.use(notFoundRouteHandler);
 app.use(backendServerErrorHandler);
 async function serve() {
