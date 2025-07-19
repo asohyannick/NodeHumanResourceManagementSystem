@@ -624,7 +624,66 @@ const updateAttendanceValidationSchema = Yup.object().shape({
     reason: Yup.string()
         .optional(),
 });
-
+const PayrollValidationSchema = Yup.object().shape({
+    employeeId: Yup.string()
+        .required('Employee ID is required'),
+    month: Yup.string()
+        .required('Month is required')
+        .matches(/^\d{4}-\d{2}$/, 'Month must be in the format YYYY-MM'), // e.g., "2023-07"
+    year: Yup.number()
+        .required('Year is required')
+        .integer('Year must be an integer')
+        .min(2000, 'Year must be at least 2000') // Adjust as needed
+        .max(new Date().getFullYear(), 'Year cannot be in the future'),
+    basicSalary: Yup.number()
+        .required('Basic salary is required')
+        .positive('Basic salary must be a positive number'),
+    allowances: Yup.number()
+        .required('Allowances are required')
+        .min(0, 'Allowances cannot be negative'),
+    deductions: Yup.number()
+        .required('Deductions are required')
+        .min(0, 'Deductions cannot be negative'),
+    netSalary: Yup.number()
+        .required('Net salary is required')
+        .positive('Net salary must be a positive number'),
+    paymentDate: Yup.date()
+        .required('Payment date is required')
+        .nullable(),
+    status: Yup.string()
+        .oneOf(['Paid', 'Pending', 'Failed'], 'Status must be either Paid, Pending, or Failed')
+        .required('Status is required'),
+});
+const updatePayrollValidationSchema = Yup.object().shape({
+    employeeId: Yup.string()
+        .required('Employee ID is required'),
+    month: Yup.string()
+        .required('Month is required')
+        .matches(/^\d{4}-\d{2}$/, 'Month must be in the format YYYY-MM'), // e.g., "2023-07"
+    year: Yup.number()
+        .required('Year is required')
+        .integer('Year must be an integer')
+        .min(2000, 'Year must be at least 2000') // Adjust as needed
+        .max(new Date().getFullYear(), 'Year cannot be in the future'),
+    basicSalary: Yup.number()
+        .required('Basic salary is required')
+        .positive('Basic salary must be a positive number'),
+    allowances: Yup.number()
+        .required('Allowances are required')
+        .min(0, 'Allowances cannot be negative'),
+    deductions: Yup.number()
+        .required('Deductions are required')
+        .min(0, 'Deductions cannot be negative'),
+    netSalary: Yup.number()
+        .required('Net salary is required')
+        .positive('Net salary must be a positive number'),
+    paymentDate: Yup.date()
+        .required('Payment date is required')
+        .nullable(),
+    status: Yup.string()
+        .oneOf(['Paid', 'Pending', 'Failed'], 'Status must be either Paid, Pending, or Failed')
+        .required('Status is required'),
+});
 export {
     registerAccountSchema,
     loginAccountSchema,
@@ -641,4 +700,6 @@ export {
     updateEmployeeLeaveValidationSchema,
     AttendanceValidationSchema,
     updateAttendanceValidationSchema,
+    PayrollValidationSchema,
+    updatePayrollValidationSchema,
 }
