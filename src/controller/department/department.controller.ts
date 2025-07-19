@@ -1,12 +1,14 @@
 import express from 'express';
 import authToken from '../../middleware/auth/auth.middle';
 import globalValidator from '../../middleware/globalValidator/globalValidator';
-import { departmentSchema } from '../../utils/validators.impl';
+import { departmentSchema, updateDepartmentSchema } from '../../utils/validators.impl';
 import createDepartment from '../../service/impl/department/createDepartment/createDepartment';
 import showDepartments from '../../service/impl/department/showDepartments/showDepartments';
 import showDepartment from '../../service/impl/department/showDepartment/showDepartment';
+import updateDepartment from '../../service/impl/department/updateDepartment/updateDepartment';
 const router = express.Router();
 router.post('/create-department', authToken, globalValidator(departmentSchema), createDepartment);
 router.get('/show-departments', authToken, showDepartments);
 router.get('/show-department/:id', authToken, showDepartment);
+router.put('/show-department/:id', authToken, globalValidator(updateDepartmentSchema), updateDepartment);
 export default router;
