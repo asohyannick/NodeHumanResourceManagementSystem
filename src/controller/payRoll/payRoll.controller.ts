@@ -6,10 +6,11 @@ import createEmployeePayRoll from '../../service/impl/payRoll/creeateEmployeePay
 import showEmployeePayRolls from '../../service/impl/payRoll/showEmployeePayRolls/showEmployeePayRolls';
 import showEmployeePayRoll from '../../service/impl/payRoll/showEmployeePayRoll/showEmployeePayRoll';
 import updateEmployeePayRoll from '../../service/impl/payRoll/updateEmployeePayRoll/updateEmployeePayRoll';
+import deleteEmployeePayRoll from '../../service/impl/payRoll/deleteEmployeePayRoll/deleteEmployeePayRoll';
 const router = express.Router();
 router.post('/create-employee-pay-roll', authToken, globalValidator(PayrollValidationSchema), createEmployeePayRoll);
 router.get('/show-employee-pay-rolls', authToken, showEmployeePayRolls);
 router.get('/show-employee-pay-roll/:id', authToken, showEmployeePayRoll);
 router.put('/update-employee-pay-roll/:id', authToken, globalValidator(updatePayrollValidationSchema), updateEmployeePayRoll);
-
+router.delete('/delete-employee-pay-roll/:id', authToken, deleteEmployeePayRoll);
 export default router;
