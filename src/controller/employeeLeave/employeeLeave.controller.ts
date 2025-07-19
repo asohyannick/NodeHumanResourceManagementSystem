@@ -6,9 +6,11 @@ import { EmployeeLeaveValidationSchema, updateEmployeeLeaveValidationSchema } fr
 import showEmployeeLeaves from '../../service/impl/leave/showEmployeeLeaves/showEmployeeLeaves';
 import showEmployeeLeave from '../../service/impl/leave/showEmployeeLeave/showEmployeeLeave';
 import updateEmployeeLeave from '../../service/impl/leave/updateEmployeeLeave/updateEmployeeLeave';
+import deleteEmployeeLeave from '../../service/impl/leave/deleteEmployeeLeave/deleteEmployeeLeave';
 const router = express.Router();
 router.post('/create-employee-leave', authToken, globalValidator(EmployeeLeaveValidationSchema), createEmployeeLeave);
 router.get('/show-employee-leaves', authToken, showEmployeeLeaves);
 router.get('/show-employee-leave/:id', authToken, showEmployeeLeave);
 router.put('/update-employee-leave/:id', authToken, globalValidator(updateEmployeeLeaveValidationSchema), updateEmployeeLeave);
+router.delete('/delete-employee-leave/:id', authToken, deleteEmployeeLeave);
 export default router;
