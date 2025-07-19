@@ -20,7 +20,7 @@ Welcome to the Human Resource Management System (HRMS) repository! This project 
 
 7. **Nodemailer**: This integration allows us to send emails for notifications, password resets, and other user communications, enhancing user engagement.
 
-## API Endpoints
+## API Endpoints.
 
 Our system features various API endpoints designed for comprehensive human resource management, including:
 
