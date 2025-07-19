@@ -3,6 +3,8 @@ import authToken from '../../middleware/auth/auth.middle';
 import globalValidator from '../../middleware/globalValidator/globalValidator';
 import { departmentSchema } from '../../utils/validators.impl';
 import createDepartment from '../../service/impl/department/createDepartment/createDepartment';
+import showDepartments from '../../service/impl/department/showDepartments/showDepartments';
 const router = express.Router();
 router.post('/create-department', authToken, globalValidator(departmentSchema), createDepartment);
+router.get('/show-departments', authToken, showDepartments);
 export default router;
