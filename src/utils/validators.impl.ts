@@ -918,6 +918,53 @@ const updateTrainingValidationSchema = Yup.object().shape({
         .required('Registration date is required')
         .nullable(),
 });
+const FeedbackValidationSchema = Yup.object().shape({
+    employeeId: Yup.string()
+        .required('Employee ID is required'),
+    trainingSessionId: Yup.string()
+        .required('Training session ID is required'),
+    date: Yup.date()
+        .required('Feedback date is required')
+        .nullable(),
+    score: Yup.number()
+        .required('Score is required')
+        .min(1, 'Score must be at least 1')
+        .max(10, 'Score must not exceed 10'),
+    comments: Yup.string()
+        .required('Comments are required'),
+    areasOfImprovement: Yup.array()
+        .of(Yup.string().required('Area of improvement is required'))
+        .required('At least one area of improvement is required'),
+    overallSatisfaction: Yup.string()
+        .oneOf(['Very Unsatisfied', 'Unsatisfied', 'Neutral', 'Satisfied', 'Very Satisfied'], 'Invalid overall satisfaction rating')
+        .required('Overall satisfaction is required'),
+    followUpActions: Yup.string()
+        .optional(),
+});
+const updateFeedbackValidationSchema = Yup.object().shape({
+    employeeId: Yup.string()
+        .required('Employee ID is required'),
+    trainingSessionId: Yup.string()
+        .required('Training session ID is required'),
+    date: Yup.date()
+        .required('Feedback date is required')
+        .nullable(),
+    score: Yup.number()
+        .required('Score is required')
+        .min(1, 'Score must be at least 1')
+        .max(10, 'Score must not exceed 10'),
+    comments: Yup.string()
+        .required('Comments are required'),
+    areasOfImprovement: Yup.array()
+        .of(Yup.string().required('Area of improvement is required'))
+        .required('At least one area of improvement is required'),
+    overallSatisfaction: Yup.string()
+        .oneOf(['Very Unsatisfied', 'Unsatisfied', 'Neutral', 'Satisfied', 'Very Satisfied'], 'Invalid overall satisfaction rating')
+        .required('Overall satisfaction is required'),
+    followUpActions: Yup.string()
+        .optional(),
+});
+
 export {
     registerAccountSchema,
     loginAccountSchema,
@@ -944,4 +991,6 @@ export {
     updateDocumentManagementValidationSchema,
     trainingValidationSchema,
     updateTrainingValidationSchema,
+    FeedbackValidationSchema,
+    updateFeedbackValidationSchema,
 }
