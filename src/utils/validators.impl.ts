@@ -748,7 +748,54 @@ const updatePerformanceValidationSchema = Yup.object().shape({
     comments: Yup.string()
         .optional(),
 });
-
+const recruitmentValidationSchema = Yup.object().shape({
+    jobId: Yup.string().required("Job ID is required"),
+    title: Yup.string().required("Title is required"),
+    description: Yup.string().required("Description is required"),
+    requirements: Yup.array().of(Yup.string()).required("Requirements are required"),
+    location: Yup.string().required("Location is required"),
+    openingDate: Yup.date().required("Opening date is required"),
+    closingDate: Yup.date().required("Closing date is required"),
+    name: Yup.string().required("Name is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    phone: Yup.string().required("Phone number is required"),
+    resumeUrl: Yup.string().url("Invalid URL").required("Resume URL is required"),
+    appliedPosition: Yup.string().required("Applied position is required"),
+    applicationDate: Yup.date().required("Application date is required"),
+    status: Yup.mixed<'Applied' | 'Interviewed' | 'Hired' | 'Rejected'>()
+        .oneOf(['Applied', 'Interviewed', 'Hired', 'Rejected'], "Status must be one of the specified values")
+        .required("Status is required"),
+    interviewId: Yup.string().required("Interview ID is required"),
+    candidateId: Yup.string().required("Candidate ID is required"),
+    interviewDate: Yup.date().required("Interview date is required"),
+    interviewers: Yup.array().of(Yup.string()).required("Interviewers are required"),
+    feedback: Yup.string().required("Feedback is required"),
+    score: Yup.number().required("Score is required").min(0, "Score must be at least 0").max(100, "Score must be at most 100")
+});
+const updateRecruitmentValidationSchema = Yup.object().shape({
+    jobId: Yup.string().required("Job ID is required"),
+    title: Yup.string().required("Title is required"),
+    description: Yup.string().required("Description is required"),
+    requirements: Yup.array().of(Yup.string()).required("Requirements are required"),
+    location: Yup.string().required("Location is required"),
+    openingDate: Yup.date().required("Opening date is required"),
+    closingDate: Yup.date().required("Closing date is required"),
+    name: Yup.string().required("Name is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    phone: Yup.string().required("Phone number is required"),
+    resumeUrl: Yup.string().url("Invalid URL").required("Resume URL is required"),
+    appliedPosition: Yup.string().required("Applied position is required"),
+    applicationDate: Yup.date().required("Application date is required"),
+    status: Yup.mixed<'Applied' | 'Interviewed' | 'Hired' | 'Rejected'>()
+        .oneOf(['Applied', 'Interviewed', 'Hired', 'Rejected'], "Status must be one of the specified values")
+        .required("Status is required"),
+    interviewId: Yup.string().required("Interview ID is required"),
+    candidateId: Yup.string().required("Candidate ID is required"),
+    interviewDate: Yup.date().required("Interview date is required"),
+    interviewers: Yup.array().of(Yup.string()).required("Interviewers are required"),
+    feedback: Yup.string().required("Feedback is required"),
+    score: Yup.number().required("Score is required").min(0, "Score must be at least 0").max(100, "Score must be at most 100")
+});
 export {
     registerAccountSchema,
     loginAccountSchema,
@@ -769,4 +816,6 @@ export {
     updatePayrollValidationSchema,
     PerformanceValidationSchema,
     updatePerformanceValidationSchema,
+    recruitmentValidationSchema,
+    updateRecruitmentValidationSchema,
 }
