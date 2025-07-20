@@ -4,7 +4,9 @@ import globalValidator from '../../middleware/globalValidator/globalValidator';
 import { FeedbackValidationSchema } from '../../utils/validators.impl';
 import createFeedback from '../../service/impl/feedback/createFeedback/createFeedback';
 import showFeedbacks from '../../service/impl/feedback/showFeedbacks/showFeedbacks';
+import showFeedback from '../../service/impl/feedback/showFeedback/showFeedback';
 const router = express.Router();
 router.post('/submit-feedback', authToken, globalValidator(FeedbackValidationSchema), createFeedback);
-router.get('/show-feedbacks', authToken, showFeedbacks)
+router.get('/show-feedbacks', authToken, showFeedbacks);
+router.get('/show-feedback/:id', authToken, showFeedback);
 export default router;
