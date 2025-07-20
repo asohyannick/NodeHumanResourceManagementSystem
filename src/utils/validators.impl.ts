@@ -684,6 +684,71 @@ const updatePayrollValidationSchema = Yup.object().shape({
         .oneOf(['Paid', 'Pending', 'Failed'], 'Status must be either Paid, Pending, or Failed')
         .required('Status is required'),
 });
+const PerformanceValidationSchema = Yup.object().shape({
+    employeeId: Yup.string()
+        .required('Employee ID is required'),
+    reviewerId: Yup.string()
+        .required('Reviewer ID is required'),
+    reviewPeriod: Yup.string()
+        .required('Review period is required')
+        .matches(/^\d{4}-Q[1-4]$/, 'Review period must be in the format YYYY-QX'), // e.g., "2023-Q1"
+    reviewDate: Yup.date()
+        .required('Review date is required')
+        .nullable(),
+    score: Yup.number()
+        .required('Score is required')
+        .min(1, 'Score must be at least 1')
+        .max(5, 'Score cannot exceed 5'),
+    feedback: Yup.string()
+        .required('Feedback is required'),
+    title: Yup.string()
+        .required('Goal title is required'),
+    description: Yup.string()
+        .required('Goal description is required'),
+    targetDate: Yup.date()
+        .required('Target date is required')
+        .nullable(),
+    achieved: Yup.boolean()
+        .required('Achieved status is required'),
+    overallScore: Yup.number()
+        .required('Overall score is required')
+        .min(0, 'Overall score cannot be negative'),
+    comments: Yup.string()
+        .optional(),
+});
+const updatePerformanceValidationSchema = Yup.object().shape({
+    employeeId: Yup.string()
+        .required('Employee ID is required'),
+    reviewerId: Yup.string()
+        .required('Reviewer ID is required'),
+    reviewPeriod: Yup.string()
+        .required('Review period is required')
+        .matches(/^\d{4}-Q[1-4]$/, 'Review period must be in the format YYYY-QX'), // e.g., "2023-Q1"
+    reviewDate: Yup.date()
+        .required('Review date is required')
+        .nullable(),
+    score: Yup.number()
+        .required('Score is required')
+        .min(1, 'Score must be at least 1')
+        .max(5, 'Score cannot exceed 5'),
+    feedback: Yup.string()
+        .required('Feedback is required'),
+    title: Yup.string()
+        .required('Goal title is required'),
+    description: Yup.string()
+        .required('Goal description is required'),
+    targetDate: Yup.date()
+        .required('Target date is required')
+        .nullable(),
+    achieved: Yup.boolean()
+        .required('Achieved status is required'),
+    overallScore: Yup.number()
+        .required('Overall score is required')
+        .min(0, 'Overall score cannot be negative'),
+    comments: Yup.string()
+        .optional(),
+});
+
 export {
     registerAccountSchema,
     loginAccountSchema,
@@ -702,4 +767,6 @@ export {
     updateAttendanceValidationSchema,
     PayrollValidationSchema,
     updatePayrollValidationSchema,
+    PerformanceValidationSchema,
+    updatePerformanceValidationSchema,
 }
