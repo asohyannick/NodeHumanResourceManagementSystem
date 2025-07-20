@@ -17,6 +17,7 @@ import employeePayRollRoute from './controller/payRoll/payRoll.controller';
 import performanceReviewRoute from './controller/performance/performance.controller';
 import recruitmentRoute from './controller/recruitment/recruitment.controller';
 import documentManagementRoute from './controller/document/document.controller';
+import trainingRoute from './controller/training/training.controller';
 import notFoundRouteHandler from './middleware/404/notFoundRoute';
 import backendServerErrorHandler from './middleware/500/backendServerError';
 const app = express();
@@ -32,6 +33,7 @@ if (process.env.NODE_ENV as string === 'development') {
 }
 app.use(cors({
     origin: process.env.FRONTEND_URL as string || '*',
+    methhods:['POST', 'GET', 'PUT', 'DELETE'],
     credentials: true,
 }));
 app.use(helmet());
@@ -54,6 +56,7 @@ app.use(`/api/${API_VERSION}/employee-pay-roll`, employeePayRollRoute);
 app.use(`/api/${API_VERSION}/performance-review`, performanceReviewRoute);
 app.use(`/api/${API_VERSION}/recruitment`, recruitmentRoute);
 app.use(`/api/${API_VERSION}/document-manager`, documentManagementRoute);
+app.use(`/api/${API_VERSION}/training`, trainingRoute);
 app.use(notFoundRouteHandler);
 app.use(backendServerErrorHandler);
 async function serve() {

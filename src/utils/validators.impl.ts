@@ -514,7 +514,7 @@ const EmployeeLeaveValidationSchema = Yup.object().shape({
         .integer('Available days must be an integer'),
     usedDays: Yup.number()
         .required('Used days is required')
-        .min(0, 'Used days cannot be negative') 
+        .min(0, 'Used days cannot be negative')
         .integer('Used days must be an integer'),
 });
 const updateEmployeeLeaveValidationSchema = Yup.object().shape({
@@ -551,7 +551,7 @@ const updateEmployeeLeaveValidationSchema = Yup.object().shape({
         .integer('Available days must be an integer'),
     usedDays: Yup.number()
         .required('Used days is required')
-        .min(0, 'Used days cannot be negative') 
+        .min(0, 'Used days cannot be negative')
         .integer('Used days must be an integer'),
 });
 const AttendanceValidationSchema = Yup.object().shape({
@@ -852,6 +852,72 @@ const updateDocumentManagementValidationSchema = Yup.object().shape({
         .of(Yup.string().required('Document ID is required'))
         .optional(),
 });
+const trainingValidationSchema = Yup.object().shape({
+    title: Yup.string()
+        .required('Title is required'),
+    description: Yup.string()
+        .required('Description is required'),
+    session: Yup.string()
+        .required('Session ID is required'),
+    name: Yup.string()
+        .required('Participant name is required'),
+    email: Yup.string()
+        .email('Must be a valid email')
+        .required('Email is required'),
+    phone: Yup.string()
+        .required('Phone number is required'),
+    date: Yup.date()
+        .required('Training date is required')
+        .nullable(),
+    duration: Yup.number()
+        .required('Duration is required')
+        .min(0, 'Duration cannot be negative'),
+    location: Yup.string()
+        .required('Location is required'),
+    trainer: Yup.string()
+        .required('Trainer name is required'),
+    status: Yup.string()
+        .oneOf(['Scheduled', 'Completed', 'Cancelled'], 'Invalid status')
+        .required('Status is required'),
+    participantId: Yup.string()
+        .required('Participant ID is required'),
+    registrationDate: Yup.date()
+        .required('Registration date is required')
+        .nullable(),
+});
+const updateTrainingValidationSchema = Yup.object().shape({
+    title: Yup.string()
+        .required('Title is required'),
+    description: Yup.string()
+        .required('Description is required'),
+    session: Yup.string()
+        .required('Session ID is required'),
+    name: Yup.string()
+        .required('Participant name is required'),
+    email: Yup.string()
+        .email('Must be a valid email')
+        .required('Email is required'),
+    phone: Yup.string()
+        .required('Phone number is required'),
+    date: Yup.date()
+        .required('Training date is required')
+        .nullable(),
+    duration: Yup.number()
+        .required('Duration is required')
+        .min(0, 'Duration cannot be negative'),
+    location: Yup.string()
+        .required('Location is required'),
+    trainer: Yup.string()
+        .required('Trainer name is required'),
+    status: Yup.string()
+        .oneOf(['Scheduled', 'Completed', 'Cancelled'], 'Invalid status')
+        .required('Status is required'),
+    participantId: Yup.string()
+        .required('Participant ID is required'),
+    registrationDate: Yup.date()
+        .required('Registration date is required')
+        .nullable(),
+});
 export {
     registerAccountSchema,
     loginAccountSchema,
@@ -876,4 +942,6 @@ export {
     updateRecruitmentValidationSchema,
     documentManagementValidationSchema,
     updateDocumentManagementValidationSchema,
+    trainingValidationSchema,
+    updateTrainingValidationSchema,
 }
