@@ -6,10 +6,11 @@ import createAndUploadDocument from '../../service/impl/document/uploadDocument/
 import showUploadedDocuments from '../../service/impl/document/showDocuments/showDocuments';
 import showUploadedDocument from '../../service/impl/document/showDocument/showDocument';
 import updateUploadedDocument from '../../service/impl/document/updateDocument/updateDocument.';
+import deleteUploadedDocument from '../../service/impl/document/deleteDocument/deleteDocument';
 const router = express.Router();
-router.post('/submit-employee-documents', authToken, globalValidator(documentManagementValidationSchema), createAndUploadDocument);
+router.post('/submit-employee-document', authToken, globalValidator(documentManagementValidationSchema), createAndUploadDocument);
 router.get('/show-submitted-employee-documents', authToken, showUploadedDocuments);
 router.get('/show-submitted-employee-document/:id', authToken, showUploadedDocument);
 router.put('/update-employee-document/:id', authToken, globalValidator(updateDocumentManagementValidationSchema), updateUploadedDocument);
-
+router.delete('/delete-employee-document/:id', authToken, deleteUploadedDocument);
 export default router;
