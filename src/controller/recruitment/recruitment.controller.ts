@@ -6,9 +6,11 @@ import createJobPosting from '../../service/impl/recruitment/createJobPosting/cr
 import showJobPostings from '../../service/impl/recruitment/showJobPostings/showJobPostings';
 import showJobPosting from '../../service/impl/recruitment/showJobPosting/showJobPosting';
 import updateJobPosting from '../../service/impl/recruitment/updateJobPosting/updateJobPosting';
+import deleteJobPosting from '../../service/impl/recruitment/deleteJobPosting/deleteJobPosting';
 const router = express.Router();
 router.post('/create-job-posting', authToken, globalValidator(recruitmentValidationSchema), createJobPosting);
 router.get('/show-job-postings', authToken, showJobPostings);
 router.get('/show-job-posting/:id', authToken, showJobPosting);
 router.put('/update-job-posting/:id', authToken, globalValidator(updateRecruitmentValidationSchema), updateJobPosting);
+router.delete('/delete-job-posting/:id', authToken, deleteJobPosting);
 export default router;
