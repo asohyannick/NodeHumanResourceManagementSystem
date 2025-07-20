@@ -17,7 +17,7 @@ import employeePayRollRoute from './controller/payRoll/payRoll.controller';
 import performanceReviewRoute from './controller/performance/performance.controller';
 import recruitmentRoute from './controller/recruitment/recruitment.controller';
 import documentManagementRoute from './controller/document/document.controller';
-import trainingRoute from './controller/training/training.controller';
+import trainingSessionRoute from './controller/training/training.controller';
 import notFoundRouteHandler from './middleware/404/notFoundRoute';
 import backendServerErrorHandler from './middleware/500/backendServerError';
 const app = express();
@@ -56,7 +56,7 @@ app.use(`/api/${API_VERSION}/employee-pay-roll`, employeePayRollRoute);
 app.use(`/api/${API_VERSION}/performance-review`, performanceReviewRoute);
 app.use(`/api/${API_VERSION}/recruitment`, recruitmentRoute);
 app.use(`/api/${API_VERSION}/document-manager`, documentManagementRoute);
-app.use(`/api/${API_VERSION}/training`, trainingRoute);
+app.use(`/api/${API_VERSION}/training-session`, trainingSessionRoute);
 app.use(notFoundRouteHandler);
 app.use(backendServerErrorHandler);
 async function serve() {
