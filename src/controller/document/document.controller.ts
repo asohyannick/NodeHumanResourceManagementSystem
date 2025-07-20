@@ -1,12 +1,15 @@
 import express from 'express';
 import authToken from '../../middleware/auth/auth.middle';
 import globalValidator from '../../middleware/globalValidator/globalValidator';
-import { documentManagementValidationSchema } from '../../utils/validators.impl';
+import { documentManagementValidationSchema, updateDocumentManagementValidationSchema } from '../../utils/validators.impl';
 import createAndUploadDocument from '../../service/impl/document/uploadDocument/uploadDocument';
 import showUploadedDocuments from '../../service/impl/document/showDocuments/showDocuments';
 import showUploadedDocument from '../../service/impl/document/showDocument/showDocument';
+import updateUploadedDocument from '../../service/impl/document/updateDocument/updateDocument.';
 const router = express.Router();
 router.post('/submit-employee-documents', authToken, globalValidator(documentManagementValidationSchema), createAndUploadDocument);
 router.get('/show-submitted-employee-documents', authToken, showUploadedDocuments);
 router.get('/show-submitted-employee-document/:id', authToken, showUploadedDocument);
+router.put('/update-employee-document/:id', authToken, globalValidator(updateDocumentManagementValidationSchema), updateUploadedDocument);
+
 export default router;
