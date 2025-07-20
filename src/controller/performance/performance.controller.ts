@@ -6,10 +6,11 @@ import createEmployeePerformaceReview from '../../service/impl/performanceReview
 import showEmployeePerformaceReviews from '../../service/impl/performanceReview/showPerformaceReviews/showPerformanceReviews';
 import showEmployeePerformaceReview from '../../service/impl/performanceReview/showPerformaceReview/showPerformanceReview';
 import updateEmployeePerformaceReview from '../../service/impl/performanceReview/updatePerformaceReview/updatePerformanceReview';
+import deleteEmployeePerformaceReview from '../../service/impl/performanceReview/deletePerformaceReview/deletePerformanceReview';
 const router = express.Router();
 router.post("/create-employee-performance", authToken, globalValidator(PerformanceValidationSchema), createEmployeePerformaceReview);
 router.get('/show-performance-employee-reviews', authToken, showEmployeePerformaceReviews);
 router.get('/show-employee-performance-review/:id', authToken, showEmployeePerformaceReview);
 router.put('/update-employee-performance-review/:id', authToken, globalValidator(updatePerformanceValidationSchema), updateEmployeePerformaceReview);
-
+router.delete('/delete-employee-performance-review/:id', authToken, deleteEmployeePerformaceReview);
 export default router;
