@@ -1,12 +1,14 @@
 import express from 'express';
 import authToken from '../../middleware/auth/auth.middle';
 import globalValidator from '../../middleware/globalValidator/globalValidator';
-import { recruitmentValidationSchema } from '../../utils/validators.impl';
+import { recruitmentValidationSchema, updateRecruitmentValidationSchema } from '../../utils/validators.impl';
 import createJobPosting from '../../service/impl/recruitment/createJobPosting/createJobPosting';
 import showJobPostings from '../../service/impl/recruitment/showJobPostings/showJobPostings';
 import showJobPosting from '../../service/impl/recruitment/showJobPosting/showJobPosting';
+import updateJobPosting from '../../service/impl/recruitment/updateJobPosting/updateJobPosting';
 const router = express.Router();
 router.post('/create-job-posting', authToken, globalValidator(recruitmentValidationSchema), createJobPosting);
 router.get('/show-job-postings', authToken, showJobPostings);
 router.get('/show-job-posting/:id', authToken, showJobPosting);
+router.put('/update-job-posting/:id', authToken, globalValidator(updateRecruitmentValidationSchema), updateJobPosting);
 export default router;
