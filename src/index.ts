@@ -33,7 +33,7 @@ if (process.env.NODE_ENV as string === 'development') {
 }
 app.use(cors({
     origin: process.env.FRONTEND_URL as string || '*',
-    methhods:['POST', 'GET', 'PUT', 'DELETE'],
+    methods:['POST', 'GET', 'PUT', 'DELETE'],
     credentials: true,
 }));
 app.use(helmet());

@@ -15,7 +15,7 @@ const createTrainingSession = async (req: Request, res: Response): Promise<Respo
         participantId,
     } = req.body;
     try {
-        const newJobPosting = new TrainingModel({
+        const newEmployeeTraining = new TrainingModel({
             title,
             description,
             session,
@@ -26,15 +26,15 @@ const createTrainingSession = async (req: Request, res: Response): Promise<Respo
             duration,
             location,
             trainer,
-            status: 'Scheduled',
+            status:'Scheduled',
             participantId,
             registrationDate: Date.now(),
         });
-        await newJobPosting.save();
+        await newEmployeeTraining.save();
         return res.status(StatusCodes.CREATED).json({
             success: true,
             message: "A new training session has been created successfully!",
-            newJobPosting,
+            newEmployeeTraining,
         });
     } catch (error) {
         console.error("Error occured!", error);
