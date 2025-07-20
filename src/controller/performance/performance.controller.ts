@@ -1,12 +1,15 @@
 import express from 'express';
 import authToken from '../../middleware/auth/auth.middle';
 import globalValidator from '../../middleware/globalValidator/globalValidator';
-import { PerformanceValidationSchema } from '../../utils/validators.impl';
+import { PerformanceValidationSchema, updatePerformanceValidationSchema } from '../../utils/validators.impl';
 import createEmployeePerformaceReview from '../../service/impl/performanceReview/createPerformanceReview/createPerformanceReview';
 import showEmployeePerformaceReviews from '../../service/impl/performanceReview/showPerformaceReviews/showPerformanceReviews';
 import showEmployeePerformaceReview from '../../service/impl/performanceReview/showPerformaceReview/showPerformanceReview';
+import updateEmployeePerformaceReview from '../../service/impl/performanceReview/updatePerformaceReview/updatePerformanceReview';
 const router = express.Router();
 router.post("/create-employee-performance", authToken, globalValidator(PerformanceValidationSchema), createEmployeePerformaceReview);
 router.get('/show-performance-employee-reviews', authToken, showEmployeePerformaceReviews);
 router.get('/show-employee-performance-review/:id', authToken, showEmployeePerformaceReview);
+router.put('/update-employee-performance-review/:id', authToken, globalValidator(updatePerformanceValidationSchema), updateEmployeePerformaceReview);
+
 export default router;
