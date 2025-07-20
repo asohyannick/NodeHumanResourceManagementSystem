@@ -6,10 +6,11 @@ import createTrainingSession from '../../service/impl/training/createTrainingSes
 import showTrainingSessions from '../../service/impl/training/showTrainingSessions/showTrainingSessions';
 import showTrainingSession from '../../service/impl/training/showTrainingSession/showTrainingSession';
 import updateTrainingSession from '../../service/impl/training/updateTrainingSession/updateTrainingSession';
+import deleteTrainingSession from '../../service/impl/training/deleteTrainingSession/deleteTrainingSession';
 const router = express.Router();
 router.post('/create-training-session', authToken, globalValidator(trainingValidationSchema), createTrainingSession);
 router.get('/show-training-session', authToken, showTrainingSessions);
 router.get('/show-training-session/:id', authToken, showTrainingSession);
 router.put('/update-training-session/:id', authToken, globalValidator(updateTrainingValidationSchema), updateTrainingSession);
-
+router.delete('/delete-training-session/:id', authToken, deleteTrainingSession);
 export default router;
