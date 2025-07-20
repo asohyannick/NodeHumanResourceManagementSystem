@@ -796,6 +796,62 @@ const updateRecruitmentValidationSchema = Yup.object().shape({
     feedback: Yup.string().required("Feedback is required"),
     score: Yup.number().required("Score is required").min(0, "Score must be at least 0").max(100, "Score must be at most 100")
 });
+const documentManagementValidationSchema = Yup.object().shape({
+    title: Yup.string()
+        .required('Title is required'),
+    folders: Yup.array()
+        .of(Yup.string().required('Folder ID is required'))
+        .required('At least one folder ID is required'),
+    name: Yup.string()
+        .required('Name is required'),
+    description: Yup.string()
+        .required('Description is required'),
+    fileURL: Yup.string()
+        .url('File URL must be a valid URL')
+        .required('File URL is required'),
+    uploadedBy: Yup.string()
+        .required('Uploaded by is required'),
+    uploadDate: Yup.date()
+        .required('Upload date is required')
+        .nullable(),
+    documentType: Yup.string()
+        .oneOf(['Policy', 'Contract', 'Report', 'Form', 'Other'], 'Invalid document type')
+        .required('Document type is required'),
+    status: Yup.string()
+        .oneOf(['Active', 'Archived', 'Deleted'], 'Invalid status')
+        .required('Status is required'),
+    documents: Yup.array()
+        .of(Yup.string().required('Document ID is required'))
+        .optional(),
+});
+const updateDocumentManagementValidationSchema = Yup.object().shape({
+    title: Yup.string()
+        .required('Title is required'),
+    folders: Yup.array()
+        .of(Yup.string().required('Folder ID is required'))
+        .required('At least one folder ID is required'),
+    name: Yup.string()
+        .required('Name is required'),
+    description: Yup.string()
+        .required('Description is required'),
+    fileURL: Yup.string()
+        .url('File URL must be a valid URL')
+        .required('File URL is required'),
+    uploadedBy: Yup.string()
+        .required('Uploaded by is required'),
+    uploadDate: Yup.date()
+        .required('Upload date is required')
+        .nullable(),
+    documentType: Yup.string()
+        .oneOf(['Policy', 'Contract', 'Report', 'Form', 'Other'], 'Invalid document type')
+        .required('Document type is required'),
+    status: Yup.string()
+        .oneOf(['Active', 'Archived', 'Deleted'], 'Invalid status')
+        .required('Status is required'),
+    documents: Yup.array()
+        .of(Yup.string().required('Document ID is required'))
+        .optional(),
+});
 export {
     registerAccountSchema,
     loginAccountSchema,
@@ -818,4 +874,6 @@ export {
     updatePerformanceValidationSchema,
     recruitmentValidationSchema,
     updateRecruitmentValidationSchema,
+    documentManagementValidationSchema,
+    updateDocumentManagementValidationSchema,
 }
